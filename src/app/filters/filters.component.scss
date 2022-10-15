@@ -1,0 +1,12 @@
+input {
+  border: none;
+  border-bottom: 2px solid black;
+  padding: 15px 0px 15px 0;
+  transition: padding 0.4s;
+  font-size: 1rem;
+
+  &:focus {
+    padding-left: 15px;
+    outline: none;
+  }
+}

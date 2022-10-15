@@ -1,0 +1,20 @@
+.hero-detail {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 30px 30px 30px;
+  background-color: aliceblue;
+  border-radius: 5px;
+
+  &__top {
+    width: 100%;
+  }
+
+  &__left,
+  &__right {
+    width: 50%;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}

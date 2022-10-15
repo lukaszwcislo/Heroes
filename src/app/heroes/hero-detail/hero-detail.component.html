@@ -1,0 +1,37 @@
+<ng-container *ngIf="(vm$ | async) as vm">
+  <div class="container">
+    <div class="hero-detail">
+      <div class="hero-detail__top">
+        <h2>{{ vm.hero?.id }}. {{ vm.hero?.name }}</h2>
+      </div>
+      <div class="hero-detail__left">
+        <img [src]="vm.hero?.img" alt="vm.hero?.name">
+      </div>
+      <div class="hero-detail__right">
+        <ul>
+          <li>
+            <h4>
+              <span>Status:</span>{{ vm.hero?.status }}
+            </h4>
+          </li>
+          <li>
+            <h4>
+              <span>Species:</span>{{ vm.hero?.species }}
+            </h4>
+          </li>
+          <li>
+            <h4>
+              <span>Type:</span>{{ vm.hero?.type }}
+            </h4>
+          </li>
+          <li>
+            <h4>
+              <span>Gender:</span>{{ vm.hero?.gender }}
+            </h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <button type="button" (click)="goBack()">Go back</button>
+  </div>
+</ng-container>

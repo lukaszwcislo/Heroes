@@ -1,0 +1,24 @@
+<ul class="pagination">
+  <li *ngIf="numberOfPages.length > 1 && pagination.currentPage != 1"
+    (click)="changeCurrentPage(pagination.currentPage - 1)">
+    < </li>
+  <li *ngIf="pagination.numberOfPages > 5 && pagination.currentPage > 3" (click)="changePageBy('backward')">
+    << </li>
+      <ng-container *ngIf="pagination.numberOfPages >= 10 && pagination.currentPage > 5">
+  <li (click)="changeCurrentPage(1)">{{ 1 }}</li>
+  <li class="no-border">...</li>
+  </ng-container>
+  <li *ngFor="let page of numberOfPages; index as i" (click)="changeCurrentPage(page)"
+    [ngClass]="page === pagination.currentPage ? 'active' : ''" [hidden]="numberOfPages.length == 1">{{ page }}
+  </li>
+  <ng-container *ngIf="pagination.numberOfPages >= 10 && pagination.numberOfPages - pagination.currentPage >= 5">
+    <li class="no-border">
+      ...
+    </li>
+    <li (click)="changeCurrentPage(pagination.numberOfPages)">{{ pagination.numberOfPages }}</li>
+  </ng-container>
+  <li *ngIf="pagination.numberOfPages > 5 && pagination.numberOfPages - pagination.currentPage > 2"
+    (click)="changePageBy('forward')">>></li>
+  <li *ngIf="numberOfPages.length > 1 && pagination.currentPage != pagination.numberOfPages"
+    (click)="changeCurrentPage(pagination.currentPage + 1)">></li>
+</ul>

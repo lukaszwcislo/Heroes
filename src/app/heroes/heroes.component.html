@@ -1,0 +1,27 @@
+<ng-container *ngIf="(vm$ | async) as vm">
+  <div class="container">
+    <app-filters (emitSearchName)="searchForHeroesName($event)"></app-filters>
+    <app-pagination *ngIf="!vm.getRecordsPending" [pagination]="vm.pagination"
+      (emitPageIndex)="changeCurrentPage($event)"></app-pagination>
+    <ng-container *ngIf="vm.getRecordsPending">
+      <div class="loading-spinner-wrapper">
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!vm.heroes.length && !vm.getRecordsPending">
+      <div class="loading">
+        <h2>Brak wyników</h2>
+      </div>
+    </ng-container>
+    <ul class="heroes" *ngIf="vm.heroes.length">
+      <li *ngFor="let hero of vm.heroes" class="heroes__card">
+        <button routerLink="/heroes/detail/{{hero.id}}">
+          <app-heroes-item [hero]="hero"></app-heroes-item>
+        </button>
+      </li>
+    </ul>
+
+    <app-pagination *ngIf="!vm.getRecordsPending" [pagination]="vm.pagination"
+      (emitPageIndex)="changeCurrentPage($event)"></app-pagination>
+  </div>
+</ng-container>
