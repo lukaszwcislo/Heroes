@@ -8,7 +8,8 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { debounceTime, fromEvent, Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-filters',
@@ -16,12 +17,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./filters.component.scss'],
 })
 export class FiltersComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   @ViewChild('inputSearchName') inputSearchName!: ElementRef<HTMLInputElement>;
   @Output() emitSearchName = new EventEmitter<Event>();
 
-  ngOnInit(): void {}
+  public form!: FormGroup;
+
+  public createForm() {
+    this.form = new FormGroup({
+      name: new FormControl('test'),
+    });
+  }
+
+  ngOnInit(): void {
+    this.createForm();
+  }
 
   ngAfterViewInit(): void {
     const searchName: Observable<Event> = fromEvent(

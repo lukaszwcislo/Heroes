@@ -20,7 +20,6 @@ export class Hero {
 
 export interface HeroesState {
   heroes: Hero[];
-  hero: HeroDetail | null;
   pagination: Pagination;
   getRecordsPending: boolean;
 }

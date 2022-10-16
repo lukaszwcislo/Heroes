@@ -21,7 +21,6 @@ import { MessageService } from 'primeng/api';
 
 let _state: HeroesState = {
   heroes: [],
-  hero: null,
   pagination: new Pagination({ currentPage: 1, numberOfPages: 0 }),
   getRecordsPending: true,
 };
@@ -59,8 +58,6 @@ export class HeroesService {
 
   public heroes$ = this.state$.pipe(map((state) => state.heroes));
 
-  public hero$ = this.state$.pipe(map((state) => state.hero));
-
   public pagination$ = this.state$.pipe(map((state) => state.pagination));
 
   public getRecordsPending$ = this.state$.pipe(
@@ -69,12 +66,11 @@ export class HeroesService {
 
   public vm$: Observable<HeroesState> = combineLatest(
     this.heroes$,
-    this.hero$,
     this.pagination$,
     this.getRecordsPending$
   ).pipe(
-    map(([heroes, hero, pagination, getRecordsPending]) => {
-      return { heroes, hero, pagination, getRecordsPending };
+    map(([heroes, pagination, getRecordsPending]) => {
+      return { heroes, pagination, getRecordsPending };
     })
   );
 
@@ -169,29 +165,6 @@ export class HeroesService {
     );
   }
 
-  private getHeroDetailFromAPI(paramID: string): Observable<HeroDetail> {
-    return this.http.get<HeroDetail>(`${this.API_URL}/${paramID}`);
-  }
-
-  public getHeroDetail(paramID: string): void {
-    this.getHeroDetailFromAPI(paramID)
-      .pipe(
-        map((response: any) => {
-          const hero = new HeroDetail(response);
-
-          return hero;
-        })
-      )
-      .subscribe((hero: HeroDetail) => {
-        console.log('hero', hero);
-
-        this.updateState({
-          ..._state,
-          hero,
-        });
-      });
-  }
-
   private getCurrentPageFromAPI(pageIndex: number): Observable<any> {
     return this.http.get<any>(
       `${this.API_URL}?name=${this.qp()['name']}&page=${pageIndex}`
@@ -235,7 +208,6 @@ export class HeroesService {
   ngOnDestroy(): void {
     _state = {
       heroes: [],
-      hero: null,
       pagination: new Pagination({ currentPage: 1, numberOfPages: 0 }),
       getRecordsPending: false,
     };

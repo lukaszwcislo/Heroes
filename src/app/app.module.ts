@@ -15,6 +15,9 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HeroDetailResolver } from './heroes/hero-detail/hero-detail.resolver';
+import { HeroDetailService } from './heroes/hero-detail/hero-detail.service';
 
 @NgModule({
   declarations: [
@@ -34,8 +37,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToastModule,
     BrowserAnimationsModule,
     ProgressSpinnerModule,
+    ReactiveFormsModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService, HeroDetailService, HeroDetailResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

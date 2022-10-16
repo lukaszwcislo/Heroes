@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './heroes/hero-detail/hero-detail.component';
 import { HeroesItemComponent } from './heroes/heroes-item/heroes-item.component';
 import { HeroesComponent } from './heroes/heroes.component';
+import { HeroDetailResolver } from './heroes/hero-detail/hero-detail.resolver';
 
 const routes: Routes = [
   {
@@ -25,11 +26,12 @@ const routes: Routes = [
     path: 'heroes/detail/:id',
     component: HeroDetailComponent,
     title: 'Hero detail',
+    resolve: { hero: HeroDetailResolver },
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
