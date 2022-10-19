@@ -7,6 +7,7 @@
 
   &__top {
     width: 100%;
+    position: relative;
   }
 
   &__left,
@@ -16,5 +17,41 @@
     img {
       max-width: 100%;
     }
+  }
+  &__icon {
+    position: absolute;
+    right: 0;
+    font-size: 4rem;
+    top: 19px;
+    color: #ff7878;
+
+    &.pi-heart {
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &.pi-heart-fill {
+      &.is-animating {
+        animation: bounce 0.7s both;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes bounce {
+  40% {
+    opacity: 0.5;
+    transform: scale(1.5) rotate(-5deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
   }
 }

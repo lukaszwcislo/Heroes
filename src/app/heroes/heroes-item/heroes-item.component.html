@@ -1,4 +1,5 @@
 <div class="hero">
+  <div *ngIf="hero.isPinned" class="pi pi-heart-fill"></div>
   <span class="hero__id badge">{{ hero.id }}</span>
   <h2 class="hero__name name">{{ hero.name }}</h2>
   <img [src]="hero.img ? hero.img : ''" [alt]="hero.name">

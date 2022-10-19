@@ -85,6 +85,9 @@ export class HeroesService {
   }
 
   private pipeHeroModeling() {
+    let heroesPinned = this.getHeroesPinned();
+    heroesPinned = heroesPinned.map((h) => new Hero(h));
+
     return map((response: any) => {
       const heroes: Hero[] = [];
       let pagination: Pagination;
@@ -92,6 +95,16 @@ export class HeroesService {
         heroes.push(new Hero(hero));
       });
       pagination = new Pagination(response.info);
+
+      heroesPinned.forEach((hp) => {
+        heroes.forEach((h) => {
+          if (hp.id === h.id) {
+            const index = heroes.indexOf(h);
+            hp.isPinned = true;
+            heroes.splice(index, 1, hp);
+          }
+        });
+      });
 
       return { heroes, pagination };
     });
@@ -203,6 +216,15 @@ export class HeroesService {
 
   private drawRandomNumber(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  private getHeroesPinned(): Hero[] {
+    let heroesPinned: [] = [];
+    if (localStorage['pinnedHeroes']) {
+      heroesPinned = JSON.parse(localStorage['pinnedHeroes']);
+    }
+
+    return heroesPinned;
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,24 @@
+.pinned-heroes {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+
+  &__card {
+    width: 25%;
+  }
+
+  ::ng-deep {
+    .hero {
+      img {
+        border-radius: 100%;
+      }
+
+      &:hover {
+        h2 {
+          color: white;
+        }
+      }
+    }
+  }
+}

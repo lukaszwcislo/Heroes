@@ -30,11 +30,13 @@ button {
   margin-right: 1rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  &:hover,
+  &.active {
+    background-color: black;
+    color: white;
+  }
 }
-button:hover {
-  background-color: black;
-  color: white;
-}
+
 button:disabled {
   background-color: #eee;
   color: #aaa;

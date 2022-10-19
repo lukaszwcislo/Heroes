@@ -3,6 +3,9 @@
     <div class="hero-detail">
       <div class="hero-detail__top">
         <h2>{{ hero.id }}. {{ hero.name }}</h2>
+        <div *ngIf="isHeroPinned$.value" (click)="pinHero()" class="hero-detail__icon pi pi-heart-fill" #iconHeartFill>
+        </div>
+        <div *ngIf="!isHeroPinned$.value" (click)="pinHero()" class="hero-detail__icon pi pi-heart"></div>
       </div>
       <div class="hero-detail__left">
         <img [src]="hero.img" alt="hero.name">
@@ -33,5 +36,6 @@
       </div>
     </div>
     <button type="button" (click)="goBack()">Go back</button>
+    <button type="button" (click)="pinHero()">{{ isHeroPinned$.value ? 'Odepnij' : 'Przypnij' }}</button>
   </div>
 </ng-container>

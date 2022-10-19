@@ -4,17 +4,20 @@ export interface Hero {
   id: number;
   name: string;
   img?: string;
+  isPinned: boolean;
 }
 
 export class Hero {
   public id: number;
   public name: string;
   public img?: string;
+  public isPinned: boolean;
 
   constructor(json: any) {
     this.id = json.id;
     this.name = json.name;
-    this.img = json.image;
+    this.img = json.image || json.img;
+    this.isPinned = false;
   }
 }
 

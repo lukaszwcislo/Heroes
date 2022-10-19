@@ -1,6 +1,15 @@
 .hero {
+  position: relative;
   img {
     max-width: 100%;
+  }
+
+  .pi-heart-fill {
+    color: #ff7878;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 2rem;
   }
 }
 
@@ -31,11 +40,10 @@ button:disabled {
   display: inline-block;
   font-size: small;
   color: white;
-  padding: 0.8em 0.7em 0 0.7em;
+  padding: 0.8em 0.7em 0.7em 0.7em;
   background-color: #405061;
   line-height: 1em;
-  height: 1.8em;
-  min-width: 16px;
+  min-width: 25px;
   text-align: center;
   border-radius: 4px;
 }

@@ -1,1 +1,13 @@
-<p>dashboard works!</p>
+<div class="container">
+  <h2>Ulubieni bohaterowie</h2>
+  <button (click)="unpinAllHeroes()">Odepnij wsystkich</button>
+  <div class="pinned-heroes">
+    <ng-container *ngIf="pinnedHeroes$ | async as heroes">
+      <div *ngFor="let hero of heroes" class="pinned-heroes__card">
+        <button routerLink="/heroes/detail/{{hero.id}}">
+          <app-heroes-item [hero]="hero"></app-heroes-item>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>
