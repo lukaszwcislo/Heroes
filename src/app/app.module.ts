@@ -18,6 +18,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeroDetailResolver } from './heroes/hero-detail/hero-detail.resolver';
 import { HeroDetailService } from './heroes/hero-detail/hero-detail.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { HeroDetailService } from './heroes/hero-detail/hero-detail.service';
     NavigationComponent,
     HeroDetailComponent,
     PaginationComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { HeroDetailService } from './heroes/hero-detail/hero-detail.service';
     BrowserAnimationsModule,
     ProgressSpinnerModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   providers: [MessageService, HeroDetailService, HeroDetailResolver],
   bootstrap: [AppComponent],

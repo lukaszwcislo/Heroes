@@ -1,6 +1,9 @@
 <nav class="nav">
-  <div class="container">
-    <button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
-    <button routerLink="/heroes" routerLinkActive="active" (click)="reload()">Heroes</button>
+  <div class="container nav__inner">
+    <div class="nav__items">
+      <button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
+      <button routerLink="/heroes" routerLinkActive="active" (click)="reload()">Heroes</button>
+    </div>
+    <img routerLink="/dashboard" class="logo-img" src="../assets/img/heroes-logo-2.png" alt="Heroes logo">
   </div>
 </nav>

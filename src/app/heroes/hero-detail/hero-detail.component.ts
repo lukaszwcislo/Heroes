@@ -59,6 +59,10 @@ export class HeroDetailComponent implements OnInit {
     }
   }
 
+  public openModalEditHero() {
+    this.heroService.openModalEditHero();
+  }
+
   ngOnInit(): void {
     this.hero = this.route.snapshot.data['hero'];
     this.checkIfHeroPinned();

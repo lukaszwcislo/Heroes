@@ -1,4 +1,5 @@
 <div class="hero">
+  <div (click)="openModalEditHero($event)" class="pi pi-pencil"></div>
   <div *ngIf="hero.isPinned" class="pi pi-heart-fill"></div>
   <span class="hero__id badge">{{ hero.id }}</span>
   <h2 class="hero__name name">{{ hero.name }}</h2>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HeroDetail } from '../hero.types';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -21,7 +21,15 @@ export class HeroDetailService {
   public getHeroDetail(paramID: string) {
     return this.getHeroDetailFromAPI(paramID).pipe(
       map((response: any) => {
-        const hero = new HeroDetail(response);
+        let hero: HeroDetail = new HeroDetail(response);
+        if (localStorage['pinnedHeroes']) {
+          const pinnedHeroes = JSON.parse(localStorage['pinnedHeroes']);
+          pinnedHeroes.forEach((h: HeroDetail) => {
+            if (h.id === hero.id) {
+              hero.img = h.img;
+            }
+          });
+        }
 
         return hero;
       })
@@ -68,5 +76,12 @@ export class HeroDetailService {
 
       localStorage['pinnedHeroes'] = JSON.stringify(pinnedHeroes);
     }
+  }
+
+  private _isModalOpen$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public updateIsModalOpen$ = this._isModalOpen$.asObservable();
+
+  public openModalEditHero() {
+    this._isModalOpen$.next(true);
   }
 }

@@ -5,7 +5,8 @@
       (emitPageIndex)="changeCurrentPage($event)"></app-pagination>
     <ng-container *ngIf="vm.getRecordsPending">
       <div class="loading-spinner-wrapper">
-        <p-progressSpinner></p-progressSpinner>
+        <!-- <p-progressSpinner></p-progressSpinner> -->
+        <img class="img-spinner" src="../../assets/img/vortex.gif" alt="vortex">
       </div>
     </ng-container>
     <ng-container *ngIf="!vm.heroes.length && !vm.getRecordsPending">
@@ -16,7 +17,7 @@
     <ul class="heroes" *ngIf="vm.heroes.length">
       <li *ngFor="let hero of vm.heroes" class="heroes__card">
         <button routerLink="/heroes/detail/{{hero.id}}">
-          <app-heroes-item [hero]="hero"></app-heroes-item>
+          <app-heroes-item [hero]="hero" (emitOpenModalEditHero)="openModalEditHero($event)"></app-heroes-item>
         </button>
       </li>
     </ul>

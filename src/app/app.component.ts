@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from './popup/popup.component';
+import { HeroDetailService } from './heroes/hero-detail/hero-detail.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Heroes';
+  constructor(
+    private dialogRef: MatDialog,
+    private heroService: HeroDetailService
+  ) {}
+
+  public openModal() {
+    this.dialogRef.open(PopupComponent, {
+      height: '400px',
+      width: '600px',
+    });
+  }
+
+  ngOnInit(): void {
+    this.heroService.updateIsModalOpen$
+      .pipe()
+      .subscribe((isModalOpen: boolean) => {
+        isModalOpen && this.openModal();
+      });
+  }
 }

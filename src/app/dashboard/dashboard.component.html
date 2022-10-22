@@ -5,7 +5,7 @@
     <ng-container *ngIf="pinnedHeroes$ | async as heroes">
       <div *ngFor="let hero of heroes" class="pinned-heroes__card">
         <button routerLink="/heroes/detail/{{hero.id}}">
-          <app-heroes-item [hero]="hero"></app-heroes-item>
+          <app-heroes-item [hero]="hero" (emitOpenModalEditHero)="openModalEditHero($event)"></app-heroes-item>
         </button>
       </div>
     </ng-container>

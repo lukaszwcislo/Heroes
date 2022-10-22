@@ -11,6 +11,20 @@
     top: 5px;
     font-size: 2rem;
   }
+
+  .pi-pencil {
+    font-size: 1.5rem;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    opacity: 0;
+    color: black;
+  }
+  &:hover {
+    .pi-pencil {
+      opacity: 1;
+    }
+  }
 }
 
 label {

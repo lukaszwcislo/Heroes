@@ -44,3 +44,22 @@ ul {
   align-items: center;
   min-height: 50vh;
 }
+
+.img-spinner {
+  max-width: 200px;
+  animation: bounceLight 1.5s infinite linear;
+}
+
+@keyframes bounceLight {
+  40% {
+    transform: scale(1.5);
+  }
+  70% {
+    transform: scale(0.8);
+  }
+
+  0%,
+  100% {
+    transform: scale(1.5);
+  }
+}

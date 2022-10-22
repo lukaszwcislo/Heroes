@@ -147,35 +147,32 @@ export class HeroesService {
       heroes: [],
     });
 
-    setTimeout(
-      () => {
-        this.getFilteringHeroesFromAPI(e)
-          .pipe(this.pipeHeroModeling())
-          .subscribe(
-            ({ heroes, pagination }) => {
-              this.updateState({
-                ..._state,
-                heroes,
-                pagination,
-                getRecordsPending: false,
-              });
-              console.log('_state,', _state);
-            },
-            (err: Error) => {
-              this.updateState({
-                ..._state,
-                heroes: [],
-                getRecordsPending: false,
-                pagination: new Pagination({
-                  currentPage: 1,
-                  numberOfPages: 0,
-                }),
-              });
-            }
-          );
-      },
-      this.drawRandomNumber(100, 400) > 300 ? this.drawRandomNumber(0, 0) : 0
-    );
+    setTimeout(() => {
+      this.getFilteringHeroesFromAPI(e)
+        .pipe(this.pipeHeroModeling())
+        .subscribe(
+          ({ heroes, pagination }) => {
+            this.updateState({
+              ..._state,
+              heroes,
+              pagination,
+              getRecordsPending: false,
+            });
+            console.log('_state,', _state);
+          },
+          (err: Error) => {
+            this.updateState({
+              ..._state,
+              heroes: [],
+              getRecordsPending: false,
+              pagination: new Pagination({
+                currentPage: 1,
+                numberOfPages: 0,
+              }),
+            });
+          }
+        );
+    }, this.drawRandomNumber(500, 1500));
   }
 
   private getCurrentPageFromAPI(pageIndex: number): Observable<any> {
@@ -190,28 +187,25 @@ export class HeroesService {
       heroes: [],
       getRecordsPending: true,
     });
-    setTimeout(
-      () => {
-        this.getCurrentPageFromAPI(pageIndex)
-          .pipe(this.pipeHeroModeling())
-          .subscribe(({ heroes, pagination }) => {
-            pagination.currentPage = pageIndex;
-            this.router.navigate(['heroes'], {
-              queryParams: {
-                name: this.qp()['name'],
-                page: pageIndex,
-              },
-            });
-            this.updateState({
-              ..._state,
-              heroes,
-              pagination,
-              getRecordsPending: false,
-            });
+    setTimeout(() => {
+      this.getCurrentPageFromAPI(pageIndex)
+        .pipe(this.pipeHeroModeling())
+        .subscribe(({ heroes, pagination }) => {
+          pagination.currentPage = pageIndex;
+          this.router.navigate(['heroes'], {
+            queryParams: {
+              name: this.qp()['name'],
+              page: pageIndex,
+            },
           });
-      },
-      this.drawRandomNumber(100, 400) > 300 ? this.drawRandomNumber(0, 0) : 0
-    );
+          this.updateState({
+            ..._state,
+            heroes,
+            pagination,
+            getRecordsPending: false,
+          });
+        });
+    }, this.drawRandomNumber(500, 1500));
   }
 
   private drawRandomNumber(min: number, max: number) {
