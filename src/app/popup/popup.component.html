@@ -1,2 +1,9 @@
-<h2>Edytuj bohatera</h2>
-<button (click)="closeModal()">Close</button>
+<div [formGroup]="form">
+  <h2>Edit Hero Image</h2>
+  <span class="p-float-label">
+    <input id="float-input" type="text" pInputText formControlName="heroImage">
+    <label for="float-input">Link to image SRC</label>
+  </span>
+  <button color="primary">Save</button>
+  <button (click)="closeModal()">Close</button>
+</div>
