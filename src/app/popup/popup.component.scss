@@ -1,0 +1,16 @@
+input {
+  &[type=text] {
+    padding: 20px;
+    width: 100%;
+  }
+}
+
+.popup-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  * {
+    text-align: center;
+  }
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HeroDetail } from '../hero.types';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -43,7 +43,7 @@ export class HeroDetailService {
       this.message.add({
         severity: 'success',
         summary: 'Sukces!',
-        detail: 'Bohater został przypiety',
+        detail: 'The hero has been pinned',
       });
       localStorage.setItem('pinnedHeroes', JSON.stringify(pinnedHeroes));
     } else {
@@ -58,7 +58,7 @@ export class HeroDetailService {
             this.message.add({
               severity: 'success',
               summary: 'Sukces!',
-              detail: 'Bohater został odpięty',
+              detail: 'The hero has been unfastened',
             });
             return;
           }
@@ -68,20 +68,65 @@ export class HeroDetailService {
         this.message.add({
           severity: 'success',
           summary: 'Sukces!',
-          detail: 'Bohater został przypiety',
+          detail: 'The hero has been pinned',
         });
       };
 
       checkIfHeroPinned();
-
       localStorage['pinnedHeroes'] = JSON.stringify(pinnedHeroes);
     }
   }
 
+  public updateHero(hero: HeroDetail) {
+    if (!localStorage['pinnedHeroes']) {
+      const pinnedHeroes = [];
+      pinnedHeroes.push(hero);
+      this.message.add({
+        severity: 'success',
+        summary: 'Sukces!',
+        detail: 'The hero has been changed',
+      });
+      localStorage.setItem('pinnedHeroes', JSON.stringify(pinnedHeroes));
+    } else {
+      let pinnedHeroes: HeroDetail[] = [];
+      pinnedHeroes = JSON.parse(localStorage['pinnedHeroes']);
+
+      const checkIfHeroPinned = () => {
+        for (let h of pinnedHeroes) {
+          const index = pinnedHeroes.indexOf(h);
+          if (h.id === hero.id) {
+            pinnedHeroes.splice(index, 1, hero);
+            this.message.add({
+              severity: 'success',
+              summary: 'Sukces!',
+              detail: 'The hero has been changed',
+            });
+            return;
+          }
+        }
+
+        pinnedHeroes.push(hero);
+        this.message.add({
+          severity: 'success',
+          summary: 'Sukces!',
+          detail: 'The hero has been changed',
+        });
+      };
+
+      checkIfHeroPinned();
+      localStorage['pinnedHeroes'] = JSON.stringify(pinnedHeroes);
+    }
+  }
+
+
   private _isModalOpen$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public updateIsModalOpen$ = this._isModalOpen$.asObservable();
 
-  public openModalEditHero() {
+  private _hero$: Subject<HeroDetail> = new Subject<HeroDetail>();
+  public updateHero$ = this._hero$.asObservable();
+
+  public openModalEditHero(hero?: HeroDetail) {
+    this._hero$.next(hero!);
     this._isModalOpen$.next(true);
   }
 }

@@ -21,7 +21,6 @@ export class DashboardService {
     if (window.localStorage['pinnedHeroes']) {
       const pinnedHeroes = JSON.parse(localStorage['pinnedHeroes']);
       this._pinnedHeroes$.next(pinnedHeroes);
-      console.log('pinnedHeroes', pinnedHeroes);
     }
   }
 

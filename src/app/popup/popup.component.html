@@ -1,9 +1,9 @@
-<div [formGroup]="form">
+<div [formGroup]="form" class="popup-wrapper">
   <h2>Edit Hero Image</h2>
   <span class="p-float-label">
-    <input id="float-input" type="text" pInputText formControlName="heroImage">
+    <input id="float-input" type="text" [(ngModel)]="data.hero.img" pInputText formControlName="heroImage">
     <label for="float-input">Link to image SRC</label>
   </span>
-  <button color="primary">Save</button>
+  <button (click)="updateHero()" color="primary">Save</button>
   <button (click)="closeModal()">Close</button>
 </div>

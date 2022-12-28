@@ -40,7 +40,6 @@ export class HeroDetailComponent implements OnInit {
     this.checkIfHeroPinned();
     setTimeout(() => {
       this.iconHeartFill.nativeElement.classList.add('is-animating');
-      console.log('this icon', this.iconHeartFill);
     }, 100);
   }
 
@@ -60,13 +59,12 @@ export class HeroDetailComponent implements OnInit {
   }
 
   public openModalEditHero() {
-    this.heroService.openModalEditHero();
+    this.heroService.openModalEditHero(this.hero);
   }
 
   ngOnInit(): void {
     this.hero = this.route.snapshot.data['hero'];
     this.checkIfHeroPinned();
-    console.log('this.route.snapshot.data', this.route.snapshot.data);
   }
 
   ngOnChanges() {}

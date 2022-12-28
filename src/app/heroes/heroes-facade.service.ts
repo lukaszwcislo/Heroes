@@ -122,7 +122,6 @@ export class HeroesService {
             pagination,
             getRecordsPending: false,
           });
-          console.log('_state,', _state);
         },
         (err) => {
           this.updateState({
@@ -158,7 +157,6 @@ export class HeroesService {
               pagination,
               getRecordsPending: false,
             });
-            console.log('_state,', _state);
           },
           (err: Error) => {
             this.updateState({
