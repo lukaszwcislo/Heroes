@@ -8,7 +8,8 @@ import { MessageService } from 'primeng/api';
   providedIn: 'root',
 })
 export class HeroDetailService {
-  constructor(private http: HttpClient, private message: MessageService) {}
+  constructor(private http: HttpClient, private message: MessageService) {
+  }
 
   API_URL = 'https://rickandmortyapi.com/api/character';
 
@@ -112,12 +113,21 @@ export class HeroDetailService {
           detail: 'The hero has been changed',
         });
       };
-
+      
       checkIfHeroPinned();
       localStorage['pinnedHeroes'] = JSON.stringify(pinnedHeroes);
     }
   }
 
+  private _status$: BehaviorSubject<number> = new BehaviorSubject(200);
+  public stausUpdate$: Observable<number> = this._status$.asObservable();
+
+  public checkIfResourceExists(url: string) : void {
+    this.http.get(url)
+    .subscribe((response: any)=> {}, (err) =>{
+      this._status$.next(err.status);
+    })
+  }
 
   private _isModalOpen$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public updateIsModalOpen$ = this._isModalOpen$.asObservable();

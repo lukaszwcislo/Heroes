@@ -1,9 +1,28 @@
 <div [formGroup]="form" class="popup-wrapper">
   <h2>Edit Hero Image</h2>
   <span class="p-float-label">
-    <input id="float-input" type="text" [(ngModel)]="data.hero.img" pInputText formControlName="heroImage">
+    <input id="float-input" type="text" pInputText formControlName="heroImage">
     <label for="float-input">Link to image SRC</label>
   </span>
-  <button (click)="updateHero()" color="primary">Save</button>
-  <button (click)="closeModal()">Close</button>
+  <span class="popup-wrapper__image-group">
+    <label class="popup-wrapper__label">Image preview</label>
+
+    <ng-container *ngIf="!loading; else loadingSpinner">
+      <img *ngIf="status === 200 && imgSrc !== ''; else noResults" class="popup-wrapper__image" [src]="imgSrc"
+        alt="Hero detail avatar preview">
+      <ng-template #noResults>
+        <div class="no-results">
+          No results
+        </div>
+      </ng-template>
+    </ng-container>
+    <ng-template #loadingSpinner>
+      <p-progressSpinner></p-progressSpinner>
+    </ng-template>
+  </span>
+  <div class="popup-wrapper__buttons-group">
+    <button (click)="updateHero()" class="p-button p-button-success"
+      [disabled]="status !== 200 || imgSrc === ''">Save</button>
+    <button (click)="closeModal()" class="p-button p-button-secondary">Close</button>
+  </div>
 </div>

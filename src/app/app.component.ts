@@ -19,8 +19,8 @@ export class AppComponent {
 
   public openModal() {
     this.dialogRef.open(PopupComponent, {
-      height: '400px',
-      width: '600px',
+      minHeight: '400px',
+      minWidth: '600px',
       data : {
         hero: this.hero,
       }

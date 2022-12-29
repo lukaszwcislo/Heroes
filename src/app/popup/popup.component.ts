@@ -3,11 +3,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HeroDetail } from '../heroes/hero.types';
 import { HeroDetailService } from '../heroes/hero-detail/hero-detail.service';
+import { debounceTime, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-popup',
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss'],
+  providers: [HeroDetailService]
 })
 export class PopupComponent implements OnInit {
   constructor(
@@ -20,7 +22,7 @@ export class PopupComponent implements OnInit {
 
   private createForm() {
     this.form = new FormGroup({
-      heroImage : new FormControl('')
+      heroImage : new FormControl(this.data.hero.img)
     })
   }
 
@@ -29,16 +31,40 @@ export class PopupComponent implements OnInit {
   }
 
   public updateHero() {
-    this.heroService.updateHero(this.data.hero)
+    this.data.hero.img = this.imgSrc;
+    this.heroService.updateHero(this.data.hero);
+    this.dialogRef.close();
   }
 
+  private checkIfResourceExists(url: string): void {
+    this.heroService.checkIfResourceExists(url)
+  }
+
+  public imgSrc?: string;
+  public loading: boolean = false;
+  public status: number = 200;
+
   ngOnInit() : void {
+    this.imgSrc = this.data.hero.img;
     this.createForm();
+    this.heroService.stausUpdate$
+      .subscribe(status => {
+        this.status = status;
+      })
     this.form.valueChanges
-      .subscribe(value => {
-        console.log(value);
-        console.log(this.data);
+      .pipe(
+        tap(() =>{
+          this.loading = true
+        }),
+        debounceTime(500), 
+        map((resp) => {
+        this.checkIfResourceExists(resp.heroImage)
         
+        return resp;
+      }))
+      .subscribe(value => {
+        this.imgSrc = value.heroImage;
+        this.loading = false
       })
   }
 }
