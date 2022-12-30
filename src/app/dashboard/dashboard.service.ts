@@ -20,6 +20,7 @@ export class DashboardService {
   public getPinnedHeroes() {
     if (window.localStorage['pinnedHeroes']) {
       const pinnedHeroes = JSON.parse(localStorage['pinnedHeroes']);
+      pinnedHeroes.reverse();
       this._pinnedHeroes$.next(pinnedHeroes);
     }
   }

@@ -4,6 +4,12 @@ input {
   padding: 15px 0px 15px 0;
   transition: padding 0.4s;
   font-size: 1rem;
+  
+  @media(max-width: 575.98px) {
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
 
   &:focus {
     padding-left: 15px;

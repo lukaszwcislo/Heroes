@@ -5,6 +5,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media(max-width: 575.98px) {
+      flex-direction: column-reverse;
+      padding-bottom: 0;
+    }
+  }
+
+  &__items {
+    @media(max-width: 575.98px) {
+      button {
+        margin: 20px 5px 0 5px;
+      }
+    }
   }
 
   &__logo {
