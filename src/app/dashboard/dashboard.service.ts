@@ -31,7 +31,7 @@ export class DashboardService {
       this._pinnedHeroes$.next([]);
       this.messageService.add({
         severity: 'success',
-        summary: 'Sukces!',
+        summary: 'Success!',
         detail: 'Wszyscy bohaterowie zostali odpięci',
       });
     }

@@ -21,12 +21,6 @@ export class Hero {
   }
 }
 
-export interface HeroesState {
-  heroes: Hero[];
-  pagination: Pagination;
-  getRecordsPending: boolean;
-}
-
 export class HeroDetail extends Hero {
   public status: string;
   public species: string;
@@ -40,4 +34,10 @@ export class HeroDetail extends Hero {
     this.type = json.type;
     this.gender = json.gender;
   }
+}
+
+export interface HeroesState {
+  heroes: HeroDetail[];
+  pagination: Pagination;
+  getRecordsPending: boolean;
 }

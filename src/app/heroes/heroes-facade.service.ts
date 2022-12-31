@@ -79,20 +79,20 @@ export class HeroesService {
   }
 
   private getAllHeroesFromAPI(): Observable<any> {
-    return this.http.get<Hero[]>(
+    return this.http.get<HeroDetail[]>(
       `${this.API_URL}?name=${this.qp()['name']}&page=${this.qp()['page']}`
     );
   }
 
   private pipeHeroModeling() {
     let heroesPinned = this.getHeroesPinned();
-    heroesPinned = heroesPinned.map((h) => new Hero(h));
+    heroesPinned = heroesPinned.map((h) => new HeroDetail(h));
 
     return map((response: any) => {
-      const heroes: Hero[] = [];
+      const heroes: HeroDetail[] = [];
       let pagination: Pagination;
       response.results.forEach((hero: Hero) => {
-        heroes.push(new Hero(hero));
+        heroes.push(new HeroDetail(hero));
       });
       pagination = new Pagination(response.info);
 
@@ -132,11 +132,11 @@ export class HeroesService {
       );
   }
 
-  private getFilteringHeroesFromAPI(e: Event): Observable<Hero[]> {
+  private getFilteringHeroesFromAPI(e: Event): Observable<HeroDetail[]> {
     const inputValue = (e.target as HTMLInputElement).value;
     this.router.navigate(['heroes'], { queryParams: { name: inputValue } });
 
-    return this.http.get<Hero[]>(`${this.API_URL}/?name=${inputValue}&page=1`);
+    return this.http.get<HeroDetail[]>(`${this.API_URL}/?name=${inputValue}&page=1`);
   }
 
   public getFilteringHeroes(e: Event): void {
@@ -210,13 +210,29 @@ export class HeroesService {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  private getHeroesPinned(): Hero[] {
+  private getHeroesPinned(): HeroDetail[] {
     let heroesPinned: [] = [];
     if (localStorage['pinnedHeroes']) {
       heroesPinned = JSON.parse(localStorage['pinnedHeroes']);
     }
 
     return heroesPinned;
+  }
+
+  public updateHero(hero: HeroDetail) {
+    let heroes : HeroDetail[] = [..._state.heroes];
+    heroes.forEach((h: HeroDetail) => {
+      if (h.id === hero.id) {
+        h.img = hero.img
+        h.isPinned = true
+      }
+    })
+    this.updateState({
+      ..._state,
+      heroes
+    })
+    console.log('s',_state);
+    
   }
 
   ngOnDestroy(): void {

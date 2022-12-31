@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { HeroDetail } from '../hero.types';
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroDetailService {
-  constructor(private http: HttpClient, private message: MessageService) {
+  constructor(private http: HttpClient, private message: MessageService, private router: Router) {
   }
 
   API_URL = 'https://rickandmortyapi.com/api/character';
@@ -43,7 +44,7 @@ export class HeroDetailService {
       pinnedHeroes.push(hero);
       this.message.add({
         severity: 'success',
-        summary: 'Sukces!',
+        summary: 'Success!',
         detail: 'The hero has been pinned',
       });
       localStorage.setItem('pinnedHeroes', JSON.stringify(pinnedHeroes));
@@ -58,7 +59,7 @@ export class HeroDetailService {
             pinnedHeroes.splice(index, 1);
             this.message.add({
               severity: 'success',
-              summary: 'Sukces!',
+              summary: 'Success!',
               detail: 'The hero has been unfastened',
             });
             return;
@@ -68,7 +69,7 @@ export class HeroDetailService {
         pinnedHeroes.push(hero);
         this.message.add({
           severity: 'success',
-          summary: 'Sukces!',
+          summary: 'Success!',
           detail: 'The hero has been pinned',
         });
       };
@@ -84,7 +85,7 @@ export class HeroDetailService {
       pinnedHeroes.push(hero);
       this.message.add({
         severity: 'success',
-        summary: 'Sukces!',
+        summary: 'Success!',
         detail: 'The hero has been changed',
       });
       localStorage.setItem('pinnedHeroes', JSON.stringify(pinnedHeroes));
@@ -99,7 +100,7 @@ export class HeroDetailService {
             pinnedHeroes.splice(index, 1, hero);
             this.message.add({
               severity: 'success',
-              summary: 'Sukces!',
+              summary: 'Success!',
               detail: 'The hero has been changed',
             });
             return;
@@ -109,7 +110,7 @@ export class HeroDetailService {
         pinnedHeroes.push(hero);
         this.message.add({
           severity: 'success',
-          summary: 'Sukces!',
+          summary: 'Success!',
           detail: 'The hero has been changed',
         });
       };

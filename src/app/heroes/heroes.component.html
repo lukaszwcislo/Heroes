@@ -10,13 +10,15 @@
     </ng-container>
     <ng-container *ngIf="!vm.heroes.length && !vm.getRecordsPending">
       <div class="loading">
-        <h2>Brak wyników</h2>
+        <h2>No results</h2>
       </div>
     </ng-container>
     <ul class="heroes" *ngIf="vm.heroes.length">
       <li *ngFor="let hero of vm.heroes" class="heroes__card">
         <button routerLink="/heroes/detail/{{hero.id}}">
-          <app-heroes-item [hero]="hero" (emitOpenModalEditHero)="openModalEditHero($event)"></app-heroes-item>
+          <app-heroes-item [hero]="hero" (emitOpenModalEditHero)="openModalEditHero($event)"
+            (emitHeroDetail)="getHeroDetail($event)">
+          </app-heroes-item>
         </button>
       </li>
     </ul>

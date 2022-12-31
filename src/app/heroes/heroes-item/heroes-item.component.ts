@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Hero } from '../hero.types';
+import { HeroDetail } from '../hero.types';
 
 @Component({
   selector: 'app-heroes-item',
@@ -7,13 +7,15 @@ import { Hero } from '../hero.types';
   styleUrls: ['./heroes-item.component.scss'],
 })
 export class HeroesItemComponent implements OnInit {
-  @Input() hero!: Hero;
+  @Input() hero!: HeroDetail;
   @Output() emitOpenModalEditHero: EventEmitter<boolean> = new EventEmitter();
+  @Output() emitHeroDetail: EventEmitter<HeroDetail> = new EventEmitter();
 
   constructor() {}
 
   public openModalEditHero(e: Event) {
     e.stopPropagation();
+    this.emitHeroDetail.emit(this.hero);
     this.emitOpenModalEditHero.emit(true);
   }
 
