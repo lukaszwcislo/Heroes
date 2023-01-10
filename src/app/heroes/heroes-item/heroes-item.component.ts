@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { HeroDetail } from '../hero.types';
 
 @Component({
@@ -6,12 +7,15 @@ import { HeroDetail } from '../hero.types';
   templateUrl: './heroes-item.component.html',
   styleUrls: ['./heroes-item.component.scss'],
 })
-export class HeroesItemComponent implements OnInit {
+export class HeroesItemComponent implements OnInit, OnChanges {
   @Input() hero!: HeroDetail;
+  @Input() heroUpdate!: boolean;
   @Output() emitOpenModalEditHero: EventEmitter<boolean> = new EventEmitter();
   @Output() emitHeroDetail: EventEmitter<HeroDetail> = new EventEmitter();
 
   constructor() {}
+
+  public heroImage: string = '';
 
   public openModalEditHero(e: Event) {
     e.stopPropagation();
@@ -19,5 +23,11 @@ export class HeroesItemComponent implements OnInit {
     this.emitOpenModalEditHero.emit(true);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.heroImage = `url("${this.hero.img ? this.hero.img : ''}")`;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.heroImage = `url("${this.hero.img ? this.hero.img : ''}")`;
+  }
 }

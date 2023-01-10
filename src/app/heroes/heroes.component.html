@@ -16,7 +16,7 @@
     <ul class="heroes" *ngIf="vm.heroes.length">
       <li *ngFor="let hero of vm.heroes" class="heroes__card">
         <button routerLink="/heroes/detail/{{hero.id}}">
-          <app-heroes-item [hero]="hero" (emitOpenModalEditHero)="openModalEditHero($event)"
+          <app-heroes-item [hero]="hero" [heroUpdate]="heroesUpdate" (emitOpenModalEditHero)="openModalEditHero($event)"
             (emitHeroDetail)="getHeroDetail($event)">
           </app-heroes-item>
         </button>

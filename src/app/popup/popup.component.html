@@ -8,7 +8,7 @@
     <label class="popup-wrapper__label">Image preview</label>
 
     <ng-container *ngIf="!loading; else loadingSpinner">
-      <img *ngIf="status === 200 && imgSrc !== ''; else noResults" class="popup-wrapper__image" [src]="imgSrc"
+      <img *ngIf="status !== 404 && imgSrc !== ''; else noResults" class="popup-wrapper__image" [src]="imgSrc"
         alt="Hero detail avatar preview">
       <ng-template #noResults>
         <div class="no-results">
@@ -22,7 +22,7 @@
   </span>
   <div class="popup-wrapper__buttons-group">
     <button (click)="updateHero()" class="p-button p-button-success"
-      [disabled]="status !== 200 || imgSrc === ''">Save</button>
+      [disabled]="status === 404 || imgSrc === ''">Save</button>
     <button (click)="closeModal()" class="p-button p-button-secondary">Close</button>
   </div>
 </div>

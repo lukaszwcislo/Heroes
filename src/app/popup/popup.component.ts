@@ -33,7 +33,7 @@ export class PopupComponent implements OnInit {
   public updateHero() {
     this.data.hero.img = this.imgSrc;
     this.heroService.updateHero(this.data.hero);
-    this.dialogRef.close();
+    this.closeModal();
   }
 
   private checkIfResourceExists(url: string): void {

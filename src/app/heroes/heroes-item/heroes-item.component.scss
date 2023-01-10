@@ -7,6 +7,14 @@
     max-height: 300px;
   }
 
+  &__image {
+    width: 100%;
+    padding: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .pi-heart-fill {
     color: #ff7878;
     position: absolute;

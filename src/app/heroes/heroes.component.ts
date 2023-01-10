@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Hero, HeroDetail, HeroesState } from './hero.types';
 import { HeroesService } from './heroes-facade.service';
@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeroDetailService } from './hero-detail/hero-detail.service';
 import { PopupComponent } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./heroes.component.scss'],
   providers: [HeroesService],
 })
-export class HeroesComponent implements OnInit {
+export class HeroesComponent implements OnInit, OnDestroy {
   constructor(
     private facade: HeroesService,
     private route: ActivatedRoute,
@@ -22,6 +23,8 @@ export class HeroesComponent implements OnInit {
     private heroDetailService: HeroDetailService,
     private dialogRef: MatDialog,
   ) {}
+
+  private heroesSubscription = new Subscription()
 
   public vm$: Observable<HeroesState> = this.facade.vm$;
 
@@ -43,9 +46,27 @@ export class HeroesComponent implements OnInit {
     this.hero = hero;
   }
 
+  public heroesUpdate: boolean = true;
+
   ngOnInit(): void {
-    this.dialogRef.afterAllClosed.subscribe(() => {
-      this.facade.updateHero(this.hero)
-    })
+    this.heroesSubscription.add(this.dialogRef.afterAllClosed.subscribe(() => { 
+      if(localStorage["pinnedHeroes"]) {
+        const pinnedHeroes = JSON.parse(localStorage["pinnedHeroes"])
+        pinnedHeroes.forEach((h: HeroDetail) => {
+          if (this.hero && h.id === this.hero.id) {
+            this.facade.updateHero(this.hero)
+          }
+        })
+      }
+    }))
+
+    this.heroesSubscription.add(this.facade.heroes$
+      .subscribe((heroes: HeroDetail[]) => {
+        this.heroesUpdate = !this.heroesUpdate;
+      }))
+  }
+
+  ngOnDestroy(): void {
+    this.heroesSubscription.unsubscribe();
   }
 }

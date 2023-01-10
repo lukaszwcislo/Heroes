@@ -231,8 +231,6 @@ export class HeroesService {
       ..._state,
       heroes
     })
-    console.log('s',_state);
-    
   }
 
   ngOnDestroy(): void {
